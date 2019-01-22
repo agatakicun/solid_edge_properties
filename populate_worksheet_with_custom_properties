@@ -1,0 +1,47 @@
+Sub GetFileProps()
+Dim objPropSets As PropertySets
+Dim objProps As Properties
+Dim objProp As Property
+Dim FilePath As String
+Dim strFile As String
+Dim strPath As String
+Dim m As Integer
+Dim i As Integer
+Dim e As Integer
+Dim colFiles As New Collection
+
+Set objPropSets = CreateObject("SolidEdge.FileProperties")
+
+strPath = "C:\Users\kicun_a\Desktop\ces\"
+strFile = Dir(strPath)
+
+While strFile <> ""
+If Right(strFile, 3) = "par" Then
+colFiles.Add strFile
+End If
+strFile = Dir
+Wend
+
+If colFiles.Count > 0 Then
+
+For m = 1 To colFiles.Count
+FilePath = strPath & colFiles(m)
+
+Call objPropSets.Open(FilePath)
+
+Set objProps = objPropSets.Item("Custom")
+
+For Each objProp In objProps
+i = i + 1
+Cells(m + 1, 1) = Dir(FilePath)
+If m = 1 Then
+Cells(m, i + 1) = objProp.Name
+Cells(m + 1, i + 1) = objProp.Value
+Else
+Cells(m + 1, i + 1) = objProp.Value
+End If
+Next
+i = 0
+Next
+End If
+End Sub
