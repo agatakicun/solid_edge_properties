@@ -1,4 +1,4 @@
-# solid_edge_properties
+# Solid edge properties
 
 Some vba macros useful when working with Solid Edge (CAD Design)
 
